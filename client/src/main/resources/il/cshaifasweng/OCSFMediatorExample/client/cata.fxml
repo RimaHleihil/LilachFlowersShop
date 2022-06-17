@@ -17,13 +17,13 @@
       <stylesheets>
          <URL value="@style.css" />
       </stylesheets>
-      <Button fx:id="ShowButton" layoutX="225.0" layoutY="188.0" mnemonicParsing="false" onAction="#ShowCatalogue" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: #c92e9d; -fx-background-color: babypink;" text="Go to Catalogue" textFill="#9a2178" textOverrun="WORD_ELLIPSIS">
+      <Button fx:id="ShowButton" layoutX="234.0" layoutY="176.0" mnemonicParsing="false" onAction="#ShowCatalogue" prefHeight="55.0" prefWidth="126.0" style="-fx-border-color: #c92e9d; -fx-background-color: babypink;" text="Go to Catalog" textFill="#c71692" textOverrun="WORD_ELLIPSIS">
          <font>
-            <Font name="Arial" size="16.0" />
+            <Font name="Arial" size="15.0" />
          </font></Button>
-      <Button fx:id="signInButton" layoutX="255.0" layoutY="367.0" mnemonicParsing="false" onAction="#signIn" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign In" textFill="#c71692">
+      <Button fx:id="signInButton" layoutX="253.0" layoutY="383.0" mnemonicParsing="false" onAction="#signIn" prefHeight="41.0" prefWidth="97.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign In" textFill="#c71692">
          <font>
-            <Font name="Arial" size="12.0" />
+            <Font name="Arial" size="15.0" />
          </font>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
@@ -31,32 +31,35 @@
          <effect>
             <Glow level="0.0" />
          </effect></Button>
-      <TextField fx:id="usernameTF" layoutX="198.0" layoutY="295.0" prefHeight="23.0" prefWidth="217.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
-      <TextField fx:id="passwordTF" layoutX="198.0" layoutY="333.0" prefHeight="25.0" prefWidth="217.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
-      <Button fx:id="signIpButton" cache="true" layoutX="256.0" layoutY="473.0" mnemonicParsing="false" onAction="#signUp" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign Up" textFill="#c52397" />
-      <Label layoutX="120.0" layoutY="299.0" text="UserName" textFill="#a83a9f">
+      <TextField fx:id="usernameTF" layoutX="198.0" layoutY="308.0" prefHeight="23.0" prefWidth="217.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
+      <TextField fx:id="passwordTF" layoutX="198.0" layoutY="344.0" prefHeight="25.0" prefWidth="217.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
+      <Button fx:id="signIpButton" cache="true" layoutX="253.0" layoutY="482.0" mnemonicParsing="false" onAction="#signUp" prefHeight="41.0" prefWidth="97.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign Up" textFill="#c71692">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <Label layoutX="120.0" layoutY="313.0" text="UserName" textFill="#a83a9f">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="122.0" layoutY="333.0" prefHeight="25.0" prefWidth="69.0" text="Password" textFill="#b52e9f">
+      <Label layoutX="121.0" layoutY="345.0" prefHeight="25.0" prefWidth="69.0" text="Password" textFill="#b52e9f">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="instructions" layoutX="170.0" layoutY="443.0" prefHeight="21.0" prefWidth="262.0" text="Don't have an account? Press &quot;Sign Up&quot; " textFill="#c92e9d">
+      <Label fx:id="instructions" layoutX="171.0" layoutY="453.0" prefHeight="21.0" prefWidth="262.0" text="Don't have an account? Press &quot;Sign Up&quot; " textFill="#c92e9d">
          <font>
             <Font name="Arial" size="14.0" />
          </font></Label>
-      <Label fx:id="welcomeText1" layoutX="211.0" layoutY="269.0" prefHeight="17.0" prefWidth="199.0" style="-fx-alignment: yellow;" text="already a client? Sign in!" textAlignment="CENTER" textFill="#9a226a">
-         <font>
-            <Font name="Arial" size="16.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="77.0" fitWidth="377.0" layoutX="122.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="81.0" fitWidth="469.0" layoutX="61.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@lil.jpg" />
          </image>
       </ImageView>
+      <Label fx:id="welcomeText11" layoutX="156.0" layoutY="259.0" prefHeight="31.0" prefWidth="307.0" style="-fx-alignment: yellow;" text="When words just won’t do…send a flower!" textAlignment="CENTER" textFill="#c92e9d">
+         <font>
+            <Font name="Guttman Frnew" size="15.0" />
+         </font>
+      </Label>
    </AnchorPane>
 </HBox>
