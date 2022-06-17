@@ -12,6 +12,34 @@
 	<artifactId>client</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.21</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.12.Final</version>
+		</dependency>
+
+
+
+
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
 			<version>${javafx.version}</version>
@@ -32,18 +60,20 @@
 			<version>${javafx.version}</version>
 			<classifier>win</classifier>
 		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>mac</classifier>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.openjfx</groupId>-->
+<!--			<artifactId>javafx-graphics</artifactId>-->
+<!--			<version>14</version>-->
+<!--			<classifier>linux</classifier>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.openjfx</groupId>-->
+<!--			<artifactId>javafx-graphics</artifactId>-->
+<!--			<version>14</version>-->
+<!--			<classifier>mac</classifier>-->
+<!--		</dependency>-->
+
+
 		<dependency>
 			<groupId>org.greenrobot</groupId>
 			<artifactId>eventbus</artifactId>
@@ -53,6 +83,7 @@
 			<groupId>${groupId}</groupId>
 			<artifactId>entities</artifactId>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -63,7 +94,9 @@
 				<configuration>
 					<mainClass>il.cshaifasweng.OCSFMediatorExample.client.Main</mainClass>
 				</configuration>
+
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -81,9 +114,27 @@
 								</transformer>
 							</transformers>
 						</configuration>
+
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<release>13</release>
+				</configuration>
+			</plugin>
+
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 	</build>
 </project>

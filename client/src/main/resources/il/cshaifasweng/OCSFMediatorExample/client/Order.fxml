@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" prefHeight="1096.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.OrderController">
+    <children>
+      <ScrollPane>
+         <content>
+              <AnchorPane prefHeight="1096.0" prefWidth="835.0" style="-fx-background-color: DarkSeaGreen;">
+                  <children>
+                      <Button fx:id="homebutton" layoutX="74.0" layoutY="57.0" mnemonicParsing="false" onAction="#goHome" prefHeight="31.0" prefWidth="66.0" style="-fx-background-color: white;" text="Home">
+                          <font>
+                              <Font name="Century Gothic Bold" size="12.0" />
+                          </font>
+                  </Button>
+                      <TableView fx:id="ProductTable" layoutX="37.0" layoutY="112.0" prefHeight="434.0" prefWidth="770.0" style="-fx-background-color: white;">
+                          <columns>
+                              <TableColumn fx:id="imageCol" prefWidth="239.20000457763672" resizable="false" text="Image" />
+                              <TableColumn fx:id="productName" prefWidth="233.60003662109375" text="Name" />
+                              <TableColumn fx:id="productKind" prefWidth="130.39996337890625" text="Kind" />
+                              <TableColumn fx:id="productPrice" prefWidth="164.7999267578125" text="Price" />
+                          </columns>
+                      </TableView>
+                      <Button fx:id="OrderB" layoutX="74.0" layoutY="843.0" mnemonicParsing="false" onAction="#Order" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white;" text="Order">
+                          <font>
+                              <Font name="Century Gothic Bold" size="12.0" />
+                          </font>
+                  </Button>
+                      <Button fx:id="CancelB" layoutX="213.0" layoutY="843.0" mnemonicParsing="false" onAction="#CancelOrder" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white;" text="Cancel">
+                          <font>
+                              <Font name="Century Gothic Bold" size="12.0" />
+                          </font>
+                      </Button>
+                  <Label layoutX="78.0" layoutY="588.0" text="Date For The Order To Be Ready:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="627.0" text="Time For The Order To Be Ready:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="662.0" text="Shipping:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="date" layoutX="304.0" layoutY="584.0" />
+                  <CheckBox fx:id="yesship" layoutX="165.0" layoutY="665.0" mnemonicParsing="false" onAction="#checkYES" text="Yes">
+                     <font>
+                        <Font name="Century Gothic Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="noship" layoutX="226.0" layoutY="663.0" mnemonicParsing="false" onAction="#checkNo" text="No">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <TextField fx:id="Time" layoutX="304.0" layoutY="623.0" text="Time" />
+                  <Label layoutX="84.0" layoutY="797.0" text="Card Number:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="374.0" layoutY="796.0" text="CVV:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="CardNumberTF" layoutX="186.0" layoutY="793.0" />
+                  <TextField fx:id="CVVTF" layoutX="422.0" layoutY="792.0" />
+                  <Label layoutX="326.0" layoutY="732.0" text="Phone Number:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="86.0" layoutY="733.0" text="Name:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="PhoneNumberTF" layoutX="151.0" layoutY="729.0" />
+                  <TextField fx:id="NameTF" layoutX="454.0" layoutY="728.0" />
+                  <Label layoutX="77.0" layoutY="697.0" text="In case you want to ship your order please write your name and phone number.">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="764.0" text="Please enter your credit card number and the cvv.">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="instructions" layoutX="65.0" layoutY="917.0" prefHeight="119.0" prefWidth="556.0">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="GetPriceB" layoutX="538.0" layoutY="581.0" mnemonicParsing="false" onAction="#GetPrice" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white;" text="Get Price">
+                     <font>
+                        <Font name="Century Gothic Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="price" layoutX="662.0" layoutY="579.0" prefHeight="34.0" prefWidth="124.0">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="311.0" layoutY="664.0" text="Card:">
+                     <font>
+                        <Font name="Century Gothic Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="yescard" layoutX="357.0" layoutY="665.0" mnemonicParsing="false" onAction="#checkYEScard" text="Yes">
+                     <font>
+                        <Font name="Century Gothic Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="nocard" layoutX="420.0" layoutY="664.0" mnemonicParsing="false" onAction="#checkNocard" text="No">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  </children>
+              </AnchorPane>
+         </content>
+      </ScrollPane>
+    </children>
+</HBox>

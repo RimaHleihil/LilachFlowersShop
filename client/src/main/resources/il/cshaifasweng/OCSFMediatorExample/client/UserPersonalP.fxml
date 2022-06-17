@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" prefHeight="529.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.UserPersonalPController">
+    <children>
+        <AnchorPane prefHeight="654.0" prefWidth="774.0" style="-fx-background-color: DarkSeaGreen;">
+            <children>
+                <Label layoutX="280.0" layoutY="71.0" prefHeight="22.0" prefWidth="131.0" text="My Account">
+                    <font>
+                        <Font name="Century Gothic Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Button fx:id="OrderButton" layoutX="280.0" layoutY="184.0" mnemonicParsing="false" onAction="#GoToOrderPage" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: white;" text="Order">
+                    <font>
+                        <Font name="Century Gothic" size="14.0" />
+                    </font></Button>
+                <Label fx:id="instructions" layoutX="122.0" layoutY="383.0" prefHeight="21.0" prefWidth="439.0" />
+            <Button fx:id="CancelHistoryB" layoutX="280.0" layoutY="241.0" mnemonicParsing="false" onAction="#CancelHistoryPage" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: white;" text="Cancel History">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="OrdersHistoryB" layoutX="280.0" layoutY="300.0" mnemonicParsing="false" onAction="#OrdersHistoryPage" prefHeight="31.0" prefWidth="122.0" style="-fx-background-color: white;" text="Orders History">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="HomeB" layoutX="38.0" layoutY="32.0" mnemonicParsing="false" onAction="#GoHome" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: white;" text="Home">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="CatalogB" layoutX="280.0" layoutY="124.0" mnemonicParsing="false" onAction="#GoToCatalog" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: white;" text="Catalog">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+    </children>
+</HBox>
