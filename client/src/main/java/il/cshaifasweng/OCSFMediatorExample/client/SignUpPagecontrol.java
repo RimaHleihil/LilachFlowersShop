@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -15,21 +16,14 @@ import java.util.ResourceBundle;
 import org.greenrobot.eventbus.EventBus;
 
 public class SignUpPagecontrol  implements Initializable {
-
-    @FXML
-    private TextField passwordTF;
-
-    @FXML
-    private TextField nameTF;
-
-    @FXML
-    private TextField idTF;
-
-    @FXML
-    private Button signUpButton;
-
-    @FXML
-    private Label instructions;
+    @FXML private ComboBox<String> AccountTCB;
+    @FXML private TextField passwordTF;
+    @FXML private TextField nameTF;
+    @FXML private TextField idTF;
+    @FXML private Button signUpButton;
+    @FXML private Label instructions;
+    @FXML private TextField CardNumTF;
+    @FXML private TextField cvvTF;
 
     @Subscribe
     public void SignUpEvent(SignUpEvent event)
@@ -58,17 +52,21 @@ public class SignUpPagecontrol  implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        AccountTCB.getItems().addAll("First","Second","Third");
         EventBus.getDefault().register(this);
     }
 
     @FXML
     void signUp(ActionEvent event) throws InterruptedException {
-            if (nameTF.getText().equals("") || passwordTF.getText().equals("") || idTF.getText().equals("")) {
+        String type = AccountTCB.getSelectionModel().getSelectedItem();
+            if (nameTF.getText().equals("") || passwordTF.getText().equals("") || idTF.getText().equals("")
+                    || type==null || CardNumTF.getText().equals("") || cvvTF.getText().equals("")) {
                 instructions.setTextFill(Color.color(0.7, 0, 0));
                 instructions.setText("there is an empty field please, fill out all required information.");
             }
             else {
-                String[] NamePass={idTF.getText(),nameTF.getText(),passwordTF.getText()};
+                String[] NamePass={idTF.getText(),nameTF.getText(),passwordTF.getText(),
+                        type,CardNumTF.getText(),cvvTF.getText()};
                 Message SignUpMSG=new Message(Message.SignUp_S,NamePass);
                 SimpleClient.getClient().sendMessageToServer(SignUpMSG);
                 //TimeUnit.SECONDS.sleep(4);

@@ -29,6 +29,11 @@ public class Message implements Serializable {
     public static final int ItemListForC_C=20;
     public static final int SaveOrder_S=21;
     public static final int SaveOrder_C=22;
+    public static final int ManagerSignUp_S=23;
+    public static final int ManagerSignUp_C=24;
+    public static final int ManagerLogIn_S=25;
+    public static final int ManagerLogIn_C=26;
+
 
 
     //////////////

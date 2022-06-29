@@ -5,6 +5,7 @@ import org.greenrobot.eventbus.EventBus;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
+import javax.management.monitor.StringMonitor;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,6 +16,8 @@ public class SimpleClient extends AbstractClient {
 	private static final Logger LOGGER =
 			Logger.getLogger(Client.class.getName());
 	private Client user = null;
+	private ChainManager chainManager = null;
+	private StoreManager storeManager = null;
 	private static SimpleClient client = null;
 	public static  Object data;
 	public static List<Item> itemList=null;
@@ -22,11 +25,21 @@ public class SimpleClient extends AbstractClient {
 	public Client getUser() {
 		return user;
 	}
-
 	public void setUser(Client user) {
 		this.user = user;
 	}
-
+	public ChainManager getChainManager() {
+		return chainManager;
+	}
+	public void setChainManager(ChainManager chainManager) {
+		this.chainManager = chainManager;
+	}
+	public StoreManager getStoreManager() {
+		return storeManager;
+	}
+	public void setStoreManager(StoreManager storeManager) {
+		this.storeManager = storeManager;
+	}
 	/**
 	 * Constructs the client.
 	 *
@@ -91,10 +104,40 @@ public class SimpleClient extends AbstractClient {
 					else eventLogIn.setVal(-1);
 					EventBus.getDefault().post(eventLogIn);
 					break;
+				case Message.ManagerLogIn_C:
+					String infoLogIn_m=myMsg.getInfo_Msg();
+					LogInManagersEvent eventLogIn_m=new LogInManagersEvent(-11);
+					if(infoLogIn_m.equals("1")) {
+						if(myMsg.getObject().getClass()==ChainManager.class)
+							chainManager=(ChainManager) myMsg.getObject();
+						else storeManager=(StoreManager)myMsg.getObject();
+						eventLogIn_m.setVal(1);
+						System.out.println(eventLogIn_m.getVal());
+					}
+					else if(infoLogIn_m.equals("0")){
+						eventLogIn_m.setVal(0);
+					}
+					else eventLogIn_m.setVal(-1);
+					EventBus.getDefault().post(eventLogIn_m);
+					break;
+				case Message.ManagerSignUp_C:
+					String info_s=myMsg.getInfo_Msg();
+					SignUpManagersEvent event_ms=new SignUpManagersEvent(-11);
+					if(info_s.equals("1")) {
+						if(myMsg.getObject().getClass()==ChainManager.class)
+							chainManager=(ChainManager) myMsg.getObject();
+						else storeManager=(StoreManager)myMsg.getObject();
+						event_ms.setVal(1);
+					}
+					else if(info_s.equals("0")){
+						event_ms.setVal(0);
+					}
+					else event_ms.setVal(-1);
+					EventBus.getDefault().post(event_ms);
+					break;
 				case Message.ItemListForC_C:
 					data = myMsg.getObject();
 					break;
-
 			}
 		}
 		else{
@@ -106,13 +149,8 @@ public class SimpleClient extends AbstractClient {
 	@Override
 	protected void connectionClosed() {
 		super.connectionClosed();
-		//this.closeConnection();
 	}
 
-/*	public void closeConnection() {
-		LOGGER.info("Connection closed.");
-		System.exit(0);
-	}*/
 
 	public void sendMessageToServer(Message message) {
 		try {

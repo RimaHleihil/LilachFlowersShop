@@ -1,10 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import il.cshaifasweng.OCSFMediatorExample.client.CancelHistoryListController;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -14,6 +16,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import javax.mail.Store;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -155,6 +158,21 @@ public class SimpleServer  extends AbstractServer {
 					ex.printStackTrace();
 				}
 				break;
+			case Message.ManagerLogIn_S:
+				try{
+					SessionFactory sessionFactory = getSessionFactory();
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					client.sendToClient(ManagersLogIn(message));
+				}
+				catch (Exception ex) {
+					if (session != null) {
+						session.getTransaction().rollback();
+					}
+					System.err.println("An error occurred, changes have been rolled back.");
+					ex.printStackTrace();
+				}
+				break;
 			case Message.SignUp_S:
 				try {
 					SessionFactory sessionFactory = getSessionFactory();
@@ -171,49 +189,49 @@ public class SimpleServer  extends AbstractServer {
 					ex.printStackTrace();
 				}
 				break;
-            /*case Message.Add2Basket_S:// adding an item for the item list for the wanted client
-                Message Add2BRes = new Message(Message.Add2Basket_C);
-                try {
-                    session = sessionFactory.openSession();
-                    session.beginTransaction();
-                    Item m = (Item) message.getObject();
-                    Client c=GetClientById(message.getInfo_Msg());//getting the client by the id we sent
-                    if (c!=null)
-                    {
-                        c.AddItem(m);// adding the item
-                        session.save(c);
-                        session.getTransaction().commit();
-                        session.close();
+			case Message.Add2Basket_S:// adding an item for the item list for the wanted client
+				Message Add2BRes = new Message(Message.Add2Basket_C);
+				try {
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					Item m = (Item) message.getObject();
+					Client c=GetClientById(message.getInfo_Msg());//getting the client by the id we sent
+					if (c!=null)
+					{
+						c.AddItem(m);// adding the item
+						session.save(c);
+						session.getTransaction().commit();
+						session.close();
 
-                        System.err.println("success "+m.getName());
-                    }
-                    client.sendToClient(Add2BRes);
-                } catch (Exception ex) {
-                    if (session != null) {
-                        session.getTransaction().rollback();
-                    }
-                    System.err.println("An error occurred, changes have been rolled back.");
-                    ex.printStackTrace();
-                }*/
-			//session.close();
-            /*case Message.ItemListForC_S:
-                Client c=(Client) message.getObject();
-                List<Item> itemsL=Collections.synchronizedList(c.getItemList());
-                Message intemsCres = new Message(Message.ItemListForC_C, itemsL);
-                try{
-                    client.sendToClient(intemsCres);
+						System.err.println("success "+m.getName());
+					}
+					client.sendToClient(Add2BRes);
+				} catch (Exception ex) {
+					if (session != null) {
+						session.getTransaction().rollback();
+					}
+					System.err.println("An error occurred, changes have been rolled back.");
+					ex.printStackTrace();
+				}
+				//session.close();
+			case Message.ItemListForC_S:
+				Client c=(Client) message.getObject();
+				List<Item> itemsL=Collections.synchronizedList(c.getItemList());
+				Message intemsCres = new Message(Message.ItemListForC_C, itemsL);
+				try{
+					client.sendToClient(intemsCres);
 
-                } catch(IOException e) {
-                    e.printStackTrace();
-                }
-               // session.close();
-                break;*/
-            /*case Message.SaveOrder_S:
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+				// session.close();
+				break;
+            case Message.SaveOrder_S:
                 try {
                     SessionFactory sessionFactory = getSessionFactory();
                     session = sessionFactory.openSession();
                     session.beginTransaction();
-                    SaveNew((Order_1)message.getObject());
+                    SaveNew((Order)message.getObject());
                 }
                 catch (Exception ex) {
                     if (session != null) {
@@ -222,7 +240,23 @@ public class SimpleServer  extends AbstractServer {
                     System.err.println("An error occurred, changes have been rolled back.");
                     ex.printStackTrace();
                 }
-                break;*/
+                break;
+			case Message.ManagerSignUp_S:
+				try {
+					SessionFactory sessionFactory = getSessionFactory();
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					Message resm = ManagersSignUp(message);
+					client.sendToClient(resm);
+				}
+				catch (Exception ex) {
+					if (session != null) {
+						session.getTransaction().rollback();
+					}
+					System.err.println("An error occurred, changes have been rolled back.");
+					ex.printStackTrace();
+				}
+				break;
 			default:
 				throw new IllegalStateException("Unexpected value: " + message.getMsg());
 		}
@@ -267,14 +301,131 @@ public class SimpleServer  extends AbstractServer {
 		resMSG.setInfo_Msg("0");//does not exist!
 		return resMSG;
 	}
-
+	private static Message ManagersLogIn (Message msg) {
+		String type=msg.getInfo_Msg();
+		Message resMSG=new Message(Message.ManagerLogIn_C,"-11");
+		if(type.equals("Chain")){
+			List<ChainManager> chain=getAllChainMangaers();
+			if(chain.isEmpty())
+			{
+				//Something is wrong
+				System.out.println("\n\n\n\n the data is empty :) \n\n\n\n");
+				return resMSG;
+			}
+			else {
+				String[] data=(String[]) msg.getObject();
+				for (ChainManager c:chain)
+				{
+					if(c.getUsername().equals(data[0])&& c.getPassword().equals(data[1]))
+					{
+						System.out.println("found the chain manager!!");
+						resMSG.setObject(c);
+						resMSG.setInfo_Msg("1");//found the user
+						return resMSG;
+					}
+				}
+				//return resMSG;
+			}
+		}
+		else{
+			List<StoreManager> store=getAllStroreManagers();
+			if(store.isEmpty())
+			{
+				//Something is wrong
+				System.out.println("\n\n\n\n the data is empty :) \n\n\n\n");
+				return resMSG;
+			}
+			else {
+				String[] data=(String[]) msg.getObject();
+				for (StoreManager c:store)
+				{
+					if(c.getUsername().equals(data[0])&& c.getPassword().equals(data[1]))
+					{
+						System.out.println("found the store manager!!");
+						resMSG.setObject(c);
+						resMSG.setInfo_Msg("1");//found the user
+						return resMSG;
+					}
+				}
+				//return resMSG;
+			}
+		}
+		System.out.println("After the for");
+		System.out.println("Something Wrong Can Not find The User");
+		resMSG.setInfo_Msg("0");//does not exist!
+		return resMSG;
+	}
+	private static Message ManagersSignUp (Message msg) {
+		//System.out.println("\n\n\n\n sign in function \n\n\n\n");
+		String type=msg.getInfo_Msg();
+		Message resMSG=new Message(Message.ManagerSignUp_C,"-11");
+		if(type.equals("Chain")){
+			List<ChainManager> chain=getAllChainMangaers();
+			if(chain.isEmpty())
+			{
+				ChainManager temp=(ChainManager) msg.getObject();
+				SaveNew(temp);
+				resMSG.setObject(temp);
+				resMSG.setInfo_Msg("1");//sign up successfully
+				//System.out.println("sign up successfully" + resMSG.getInfo_Msg());
+				return resMSG;
+			}
+			else {
+				ChainManager temp=(ChainManager) msg.getObject();
+				for (ChainManager c:chain)
+				{
+					if(c.getUsername().equals(temp.getUsername())||c.getID().equals(temp.getID())||
+							c.getPassword().equals(temp.getPassword()))
+					{
+						//System.out.println("already exist!!");
+						resMSG.setInfo_Msg("0");//already exist!!
+						return resMSG;
+					}
+				}
+				System.out.println("After the for");
+				SaveNew(temp);
+				resMSG.setObject(temp);
+				resMSG.setInfo_Msg("1");//sign up successfully
+				//return resMSG;
+			}
+		}
+		else {
+			List<StoreManager> store=getAllStroreManagers();
+			if(store.isEmpty())
+			{
+				SaveNew((StoreManager)msg.getObject());
+				resMSG.setInfo_Msg("1");//sign up successfully
+				//System.out.println("sign up successfully" + resMSG.getInfo_Msg());
+				return resMSG;
+			}
+			else {
+				StoreManager temp=(StoreManager) msg.getObject();
+				for (StoreManager c:store)
+				{
+					if(c.getUsername().equals(temp.getUsername())||c.getID().equals(temp.getID())||
+							c.getPassword().equals(temp.getPassword()))
+					{
+						//System.out.println("already exist!!");
+						resMSG.setInfo_Msg("0");//already exist!!
+						return resMSG;
+					}
+				}
+				System.out.println("After the for");
+				SaveNew(temp);
+				resMSG.setObject(temp);
+				resMSG.setInfo_Msg("1");//sign up successfully
+				//return resMSG;
+			}
+		}
+		return resMSG;
+	}
 	private static Message SignUp (String [] data) {
 		//System.out.println("\n\n\n\n sign in function \n\n\n\n");
 		Message resMSG=new Message(Message.SignUp_C,"-11");
 		List<Client> clients=getAllClients();
 		if(clients.isEmpty())
 		{
-			Client newClient=new Client(data[0],data[1],data[2]);
+			Client newClient=new Client(data[0],data[1],data[2],data[3],data[4],data[5]);
 			SaveNew(newClient);
 			resMSG.setObject(newClient);
 			resMSG.setInfo_Msg("1");//sign up successfully
@@ -292,7 +443,7 @@ public class SimpleServer  extends AbstractServer {
 				}
 			}
 			System.out.println("After the for");
-			Client newClient=new Client(data[0],data[1],data[2]);
+			Client newClient=new Client(data[0],data[1],data[2],data[3],data[4],data[5]);
 			SaveNew(newClient);
 			resMSG.setObject(newClient);
 			resMSG.setInfo_Msg("1");//sign up successfully
@@ -356,6 +507,22 @@ public class SimpleServer  extends AbstractServer {
 		List<Client> data = session.createQuery(query).getResultList();
 		return data;
 	}
+	public static  List<ChainManager> getAllChainMangaers(){
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<ChainManager> query = builder.createQuery(ChainManager.class);
+		Root<ChainManager> root = query.from(ChainManager.class);
+		query.select(root);
+		List<ChainManager> data = session.createQuery(query).getResultList();
+		return data;
+	}
+	public static  List<StoreManager> getAllStroreManagers(){
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<StoreManager> query = builder.createQuery(StoreManager.class);
+		Root<StoreManager> root = query.from(StoreManager.class);
+		query.select(root);
+		List<StoreManager> data = session.createQuery(query).getResultList();
+		return data;
+	}
 	public static  List<User> getAllUsers(){
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -380,7 +547,7 @@ public class SimpleServer  extends AbstractServer {
 	}
 	static void intitializeDataBase(){
 
-       Item item1 = new Item("Festive Gladioli bouquet",349,"Bouquet","https://florabloom.co.il/wp-content/uploads/2020/07/MG_1293-2-Edit_websize-1.jpg");
+        Item item1 = new Item("Festive Gladioli bouquet",349,"Bouquet","https://florabloom.co.il/wp-content/uploads/2020/07/MG_1293-2-Edit_websize-1.jpg");
         session.save(item1);
         session.flush();
         Item item2= new Item("Miss Lizzie Bouquet",318,"Bouquet","https://florabloom.co.il/wp-content/uploads/2021/11/MG_1123-2-Edit_websize-1.jpg");
@@ -422,7 +589,7 @@ public class SimpleServer  extends AbstractServer {
         Item item14=new Item("Caltheaa",65,"tree","https://florabloom.co.il/wp-content/uploads/2021/08/B8A1FC70-DF9C-4734-AA2A-A3594AB96C98.jpg");
         session.save(item14);
         session.flush();
-/*        Client c=new Client("2128965","yusra","pass7!");
+     /* Client c=new Client("2128965","yusra","pass7!");
         session.save(c);
         session.flush();
         System.out.println("Finished initialize");*/
@@ -440,7 +607,8 @@ public class SimpleServer  extends AbstractServer {
 		configuration.addAnnotatedClass(Client.class);
 		configuration.addAnnotatedClass(Message.class);
 		configuration.addAnnotatedClass(PersonalDesign.class);
-		// configuration.addAnnotatedClass(Manager.class);
+		configuration.addAnnotatedClass(ChainManager.class);
+		configuration.addAnnotatedClass(StoreManager.class);
 		configuration.addAnnotatedClass(Order.class);
 		//......a problem in biulding the table.
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

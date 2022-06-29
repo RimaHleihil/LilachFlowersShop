@@ -27,51 +27,47 @@ import java.util.ResourceBundle;
 public class Catalogcontrol implements Initializable {
     double percentage=1;
     ObservableList<Item> data = FXCollections.observableArrayList();
-    @FXML //fx:id="CataButton"
-    private Button CataButton;
 
-    @FXML
-    private Button Add2Pascket;
-
-    @FXML //fx:id="editButton"
-    private Button editButton;
-
-    @FXML // fx:id="addButton"
-    private Button addButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="deleteButton"
-    private Button deleteButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="discountButton"
-    private Button discountButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="cancelDiscountButton"
-    private Button cancelDiscountButton; // Value injected by FXMLLoader
-
-
-    @FXML
-    private Button homebutton;
-
-    @FXML
-    private TableView<Item> ProductTable;
-
-    @FXML
-    private TableColumn<Item, String> imageCol;
-
-    @FXML
-    private TableColumn<Item, String> productName;
-
-    @FXML
-    private TableColumn<Item, String> productKind;
-
-    @FXML
-    private TableColumn<Item, Double> productPrice;
-
-    @FXML
-    private Button showProductDetails;
+    @FXML private Button Add2Pascket;
+    @FXML private Button editButton;
+    @FXML private Button addButton;
+    @FXML private Button deleteButton;
+    @FXML private Button discountButton;
+    @FXML private Button homebutton;
+    @FXML private Button showProductDetails;
+    @FXML private TableView<Item> ProductTable;
+    @FXML private TableColumn<Item, String> imageCol;
+    @FXML private TableColumn<Item, String> productName;
+    @FXML private TableColumn<Item, String> productKind;
+    @FXML private TableColumn<Item, Double> productPrice;
 
     public static Item selectedItem=new Item();
     public static Item itemByPercentage=new Item();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if (SimpleClient.getClient().getChainManager() == null && SimpleClient.getClient().getStoreManager() == null) {
+
+            addButton.setVisible(false);
+            addButton.setManaged(false);
+            editButton.setVisible(false);
+            editButton.setManaged(false);
+            deleteButton.setVisible(false);
+            deleteButton.setManaged(false);
+            discountButton.setVisible(false);
+            discountButton.setManaged(false);
+        }
+        if(SimpleClient.getClient().getUser()==null)
+        {
+            Add2Pascket.setVisible(false);
+            Add2Pascket.setManaged(false);
+        }
+        initCol();
+        List<Item> myList= (List<Item>) SimpleClient.data;
+        loadData(myList);
+
+    }
 
     @FXML
     void addDiscount(ActionEvent event) {
@@ -92,7 +88,6 @@ public class Catalogcontrol implements Initializable {
         discountWindow.setTitle("Add Discount");
         discountWindow.setScene(discountScene);
         discountWindow.show();
-
         applyDiscount.setOnAction(e -> {
             double percentage = (Double.parseDouble(discountTF.getText()));
             for(int i=0; i<ProductTable.getItems().size();i++){
@@ -160,13 +155,6 @@ public class Catalogcontrol implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        initCol();
-        List<Item> myList= (List<Item>) SimpleClient.data;
-        loadData(myList);
-
-    }
     public void loadData(List<Item> myItems) {
         try {
             data.clear();
@@ -212,7 +200,6 @@ public class Catalogcontrol implements Initializable {
         StackPane.setAlignment(sixthLabel,Pos.CENTER);
         secondaryLayOut.getChildren().addAll(firstLabel,secondLabel,thirdLabel,fourthLabel,fifthLabel,sixthLabel);
         Scene secondScene = new Scene(secondaryLayOut,230,100);
-
         Stage newWindow = new Stage();
         newWindow.setTitle("Product Details");
         newWindow.setScene(secondScene);
@@ -223,7 +210,6 @@ public class Catalogcontrol implements Initializable {
     void goEdit(ActionEvent event) {
         selectedItem=ProductTable.getSelectionModel().getSelectedItem();
         Button saveBtn = new Button("Save");
-
         Label firstLabel=new Label("Product Name");
         Label secondLabel=new Label("Product Price");
         Label thirdLabel=new Label("Product Kind");
@@ -272,19 +258,18 @@ public class Catalogcontrol implements Initializable {
     }
     @FXML
     void AddToPascket(ActionEvent event) {
-/*
         int index = ProductTable.getSelectionModel().getSelectedIndex();
         if (index <= -1) {
             return;
         }
         selectedItem = ProductTable.getSelectionModel().getSelectedItem();
-        org.example.entities.Client c=Client.getClient().getUser();
+        Client c=SimpleClient.getClient().getUser();
         Message msg = new Message(Message.Add2Basket_S, selectedItem,Integer.toString(c.getId()));
         try {
-            Client.getClient().sendToServer(msg);
+            SimpleClient.getClient().sendToServer(msg);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
     }
 }

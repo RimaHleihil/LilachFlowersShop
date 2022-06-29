@@ -22,30 +22,17 @@ import org.greenrobot.eventbus.EventBus;
 
 public class catacontrol implements Initializable {
 
-    @FXML
-    private Button complainButton;
-    @FXML
-    private Button compResponeButton;
+    @FXML private Button ManagmentB;
+    @FXML private Button complainButton;
+    @FXML private Button compResponeButton;
+    @FXML private Button ShowButton;
+    @FXML private Label welcomeText;
+    @FXML private Button signInButton;
+    @FXML private TextField usernameTF;
+    @FXML private TextField passwordTF;
+    @FXML private Button signIpButton;
+    @FXML private Label instructions;
 
-    @FXML
-    private Button ShowButton;
-
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    private Button signInButton;
-
-    @FXML
-    private TextField usernameTF;
-
-    @FXML // fx:id="passwordTF"
-    private TextField passwordTF;
-
-    @FXML
-    private Button signIpButton;
-    @FXML
-    private Label instructions;
 
     @FXML
     void ShowCatalogue(ActionEvent event) {
@@ -86,11 +73,12 @@ public class catacontrol implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       EventBus.getDefault().register(this);
+
+        EventBus.getDefault().register(this);
     }
     @FXML
     void signIn(ActionEvent event) {
-        if (usernameTF.getText().equals("") || passwordTF.getText().equals("") || usernameTF.getText().equals("Name:") || passwordTF.getText().equals("Password")) {
+        if (usernameTF.getText().equals("") || passwordTF.getText().equals("")) {
             instructions.setTextFill(Color.color(0.7, 0, 0));
             instructions.setText("A field or two are empty! please enter your credentials again.");
         } else {
@@ -102,12 +90,20 @@ public class catacontrol implements Initializable {
 
     }
 
-        @FXML
+    @FXML
     void signUp(ActionEvent event) {
-            try {
-                App.setRoot("signUpPage");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        try {
+            App.setRoot("signUpPage");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    void ManagementPage(ActionEvent event) {
+        try {
+            App.setRoot("ManagersPage");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

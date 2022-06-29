@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
@@ -12,54 +13,62 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" prefHeight="604.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.catacontrol">
-   <AnchorPane prefHeight="604.0" prefWidth="613.0" styleClass="bodybg" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-      <stylesheets>
-         <URL value="@style.css" />
-      </stylesheets>
-      <Button fx:id="ShowButton" layoutX="234.0" layoutY="176.0" mnemonicParsing="false" onAction="#ShowCatalogue" prefHeight="55.0" prefWidth="126.0" style="-fx-border-color: #c92e9d; -fx-background-color: babypink;" text="Go to Catalog" textFill="#c71692" textOverrun="WORD_ELLIPSIS">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font></Button>
-      <Button fx:id="signInButton" layoutX="253.0" layoutY="383.0" mnemonicParsing="false" onAction="#signIn" prefHeight="41.0" prefWidth="97.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign In" textFill="#c71692">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-         <effect>
-            <Glow level="0.0" />
-         </effect></Button>
-      <TextField fx:id="usernameTF" layoutX="198.0" layoutY="308.0" prefHeight="23.0" prefWidth="217.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
-      <TextField fx:id="passwordTF" layoutX="198.0" layoutY="344.0" prefHeight="25.0" prefWidth="217.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
-      <Button fx:id="signIpButton" cache="true" layoutX="253.0" layoutY="482.0" mnemonicParsing="false" onAction="#signUp" prefHeight="41.0" prefWidth="97.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign Up" textFill="#c71692">
-         <font>
-            <Font size="15.0" />
-         </font></Button>
-      <Label layoutX="120.0" layoutY="313.0" text="UserName" textFill="#a83a9f">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="121.0" layoutY="345.0" prefHeight="25.0" prefWidth="69.0" text="Password" textFill="#b52e9f">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="instructions" layoutX="171.0" layoutY="453.0" prefHeight="21.0" prefWidth="262.0" text="Don't have an account? Press &quot;Sign Up&quot; " textFill="#c92e9d">
-         <font>
-            <Font name="Arial" size="14.0" />
-         </font></Label>
-      <ImageView fitHeight="81.0" fitWidth="469.0" layoutX="61.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@lil.jpg" />
-         </image>
-      </ImageView>
-      <Label fx:id="welcomeText11" layoutX="156.0" layoutY="259.0" prefHeight="31.0" prefWidth="307.0" style="-fx-alignment: yellow;" text="When words just won’t do…send a flower!" textAlignment="CENTER" textFill="#c92e9d">
-         <font>
-            <Font name="Guttman Frnew" size="15.0" />
-         </font>
-      </Label>
-   </AnchorPane>
+<HBox alignment="CENTER" prefHeight="679.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.catacontrol">
+   <ScrollPane>
+      <content>
+         <AnchorPane prefHeight="678.0" prefWidth="698.0" styleClass="bodybg">
+            <stylesheets>
+               <URL value="@style.css" />
+            </stylesheets>
+            <Button fx:id="ShowButton" layoutX="269.0" layoutY="204.0" mnemonicParsing="false" onAction="#ShowCatalogue" prefHeight="28.0" prefWidth="119.0" style="-fx-border-color: #c92e9d; -fx-background-color: babypink;" text="Catalog" textFill="#9a2178" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="signInButton" layoutX="284.0" layoutY="428.0" mnemonicParsing="false" onAction="#signIn" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign In" textFill="#c71692">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <effect>
+                  <Glow level="0.0" />
+               </effect>
+            </Button>
+            <TextField fx:id="usernameTF" layoutX="234.0" layoutY="350.0" prefHeight="27.0" prefWidth="190.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
+            <TextField fx:id="passwordTF" accessibleRole="PASSWORD_FIELD" layoutX="234.0" layoutY="388.0" prefHeight="7.0" prefWidth="190.0" style="-fx-background-color: babypink; -fx-border-color: #ef36b8;" />
+            <Button fx:id="signIpButton" cache="true" layoutX="291.0" layoutY="537.0" mnemonicParsing="false" onAction="#signUp" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: babypink; -fx-border-color: #c92e9d;" text="Sign Up" textFill="#c52397">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label layoutX="153.0" layoutY="354.0" text="Username" textFill="#a83a9f">
+               <font>
+                  <Font name="Century Gothic Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="150.0" layoutY="390.0" prefHeight="23.0" prefWidth="79.0" text="Password" textFill="#b52e9f">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="instructions" layoutX="239.0" layoutY="502.0" prefHeight="22.0" prefWidth="180.0" text="Don't have an account? " textFill="#c92e9d">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="101.0" fitWidth="446.0" layoutX="101.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@lil.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="ManagementB" layoutX="263.0" layoutY="267.0" mnemonicParsing="false" onAction="#ManagementPage" prefHeight="15.0" prefWidth="131.0" style="-fx-border-color: #c92e9d; -fx-background-color: babypink;" text="Management" textFill="#9a2178" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </Button>
+         </AnchorPane>
+      </content>
+   </ScrollPane>
 </HBox>

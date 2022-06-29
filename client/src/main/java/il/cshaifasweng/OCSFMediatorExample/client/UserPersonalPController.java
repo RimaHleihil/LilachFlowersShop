@@ -62,16 +62,16 @@ public class UserPersonalPController {
 
     @FXML
     void GoToOrderPage(ActionEvent event) {
-       /* try {
-            org.example.entities.Client c = Client.getClient().getUser();
+        try {
+            Client c = SimpleClient.getClient().getUser();
             System.out.println(c.getUsername());
-            Message msg=new Message(Message.ItemListForC_S, Client.getClient().getUser());
-            Client.getClient().sendToServer(msg);
+            Message msg=new Message(Message.ItemListForC_S, SimpleClient.getClient().getUser());
+            SimpleClient.getClient().sendToServer(msg);
             System.out.println("message sent to server to get all items in basket ");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }*/
+        }
         try {
             App.setRoot("Order");
         } catch (IOException ex) {
