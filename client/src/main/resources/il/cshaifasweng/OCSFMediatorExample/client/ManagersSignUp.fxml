@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" prefHeight="529.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ManagerSignUpController">
+    <children>
+        <AnchorPane prefHeight="654.0" prefWidth="774.0" style="-fx-background-color: DarkSeaGreen;">
+            <children>
+                <Label layoutX="122.0" layoutY="90.0" prefHeight="31.0" prefWidth="194.0" text="Managers Sign Up">
+                    <font>
+                        <Font name="Century Gothic Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="129.0" layoutY="149.0" text="Name">
+                    <font>
+                        <Font name="Century Gothic" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="129.0" layoutY="189.0" text="ID">
+                    <font>
+                        <Font name="Century Gothic" size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="password" layoutX="129.0" layoutY="229.0" text="Password">
+                    <font>
+                        <Font name="Century Gothic" size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="nameTF" layoutX="294.0" layoutY="148.0" />
+                <TextField fx:id="idTF" layoutX="294.0" layoutY="188.0" />
+                <TextField fx:id="passwordTF" accessibleRole="PASSWORD_FIELD" layoutX="294.0" layoutY="228.0" />
+                <Button fx:id="signUpButton" layoutX="129.0" layoutY="339.0" mnemonicParsing="false" onAction="#signUp" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: white;" text="Sign Up">
+                    <font>
+                        <Font name="Century Gothic" size="14.0" />
+                    </font>
+                </Button>
+                <Label fx:id="instructions" layoutX="122.0" layoutY="449.0" prefHeight="21.0" prefWidth="439.0" />
+                <ComboBox fx:id="AccountTCB" layoutX="129.0" layoutY="279.0" prefHeight="31.0" prefWidth="142.0" promptText="Store/ Chain" />
+            </children>
+        </AnchorPane>
+    </children>
+</HBox>
